@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('organizational_statuses', function (Blueprint $table) {
+        Schema::create('man_power_roles', function (Blueprint $table) {
             $table->id();
+            $table->string('grade')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('organizational_statuses');
+        Schema::dropIfExists('man_power_roles');
     }
 };

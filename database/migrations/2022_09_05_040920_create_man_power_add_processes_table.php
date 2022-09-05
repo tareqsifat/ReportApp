@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('student_welfare_costs', function (Blueprint $table) {
+        Schema::create('man_power_add_processes', function (Blueprint $table) {
             $table->id();
+            $table->string('process', 100)->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_welfare_costs');
+        Schema::dropIfExists('man_power_add_processes');
     }
 };

@@ -15,6 +15,18 @@ return new class extends Migration
     {
         Schema::create('man_power_removes', function (Blueprint $table) {
             $table->id();
+            $table->string('unique_id')->nullable();
+            $table->string('name')->nullable();
+            $table->string('man_power_role_id')->nullable();
+            $table->string('process')->nullable();
+            $table->string('edu_inst_category')->nullable();
+            $table->string('edu_inst_sub_category')->nullable();
+            $table->string('month')->nullable();
+            $table->string('year')->nullable();
+            $table->string('class')->nullable();
+            $table->string('creator')->nullable();
+            $table->string('slug')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

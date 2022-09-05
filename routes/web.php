@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::controller(ManPowerAddController::class)->group(function(){
+    Route::post('man_power_add', 'store');
+});

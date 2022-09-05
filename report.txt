@@ -1,2 +1,6 @@
 04/09/2022
 Create 45 new database migrations 
+
+
+05/09/2022
+Working on Manpower api 
