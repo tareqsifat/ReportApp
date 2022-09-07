@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\System\ManPowerAddController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\System\ManPowerListController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,10 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::controller(AuthController::class)->group(function(){
+    Route::post('register', 'register');
+    Route::post('login', 'login');
 });
 
-Route::controller(ManPowerAddController::class)->group(function(){
-    Route::post('man_power_add', 'store');
+Route::group([
+    'middleware' => ['auth:sanctum']
+], function(){
+    Route::post('logout', [AuthController::class, 'logout']);
+
+    Route::controller(ManPowerListController::class)->group(function(){
+        Route::post('man_power_add', 'check_store_ability');
+        Route::put('add_via_list/{id}', 'add_via_list');
+    });
 });
+

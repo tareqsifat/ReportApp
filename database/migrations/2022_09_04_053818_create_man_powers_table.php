@@ -17,18 +17,18 @@ return new class extends Migration
             $table->id();
             $table->string('unique_id', 100)->nullable(); 
             $table->string('man_power_role_id', 100)->nullable();
-            $table->string('পুর্বের_সংখ্যা', 100)->nullable();
-            $table->string('বর্তমান_সংখ্যা', 100)->nullable();
-            $table->string('বৃদ্ধি_সংখ্যা', 100)->nullable(); 
-            $table->string('ঘাটতি_সংখ্যা', 100)->nullable();
-            $table->string('বাস্তবায়ন_হার', 100)->nullable();
-            $table->string('টার্গেট', 100)->nullable();
-            $table->string('মুলতবি', 100)->nullable();
+            $table->string('পুর্বের_সংখ্যা', 100)->default(0);
+            $table->string('বর্তমান_সংখ্যা', 100)->default(0);
+            $table->string('বৃদ্ধি_সংখ্যা', 100)->default(0); 
+            $table->string('ঘাটতি_সংখ্যা', 100)->default(0);
+            $table->string('বাস্তবায়ন_হার', 100)->default(0);
+            $table->string('টার্গেট', 100)->default(0);
+            $table->string('মুলতবি', 100)->default(0);
             $table->string('month')->nullable();
             $table->string('year')->nullable();
             $table->string('creator')->nullable();
             $table->string('slug')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->default(1);
             $table->timestamps();
         });
     }
