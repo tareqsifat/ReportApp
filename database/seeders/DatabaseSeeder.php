@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\ManPower;
 use App\Models\ManPowerAddProcess;
+use App\Models\ManPowerList;
 use App\Models\ManPowerRemoveProcess;
 use App\Models\ManPowerRole;
 use Illuminate\Database\Seeder;
@@ -29,12 +31,16 @@ class DatabaseSeeder extends Seeder
         ManPowerAddProcess::truncate();
         ManPowerRole::truncate();
         ManPowerRemoveProcess::truncate();
+        ManPowerList::truncate();
+        ManPower::truncate();
 
 
         $this->call([
             ManPowerAddProcessSeeder::class,
             ManPowerRoleSeeder::class,
-            ManPowerRemoveProcessSeeder::class
+            ManPowerRemoveProcessSeeder::class,
+            ManPowerlistSeeder::class,
+            ManPowerSeeder::class,
         ]);
     }
 }

@@ -14,7 +14,7 @@ class ManPowerRepository implements ManPowerInterface
 
         $man_p = ManPower::where('month', $request->month)->where('year', $request->year)
             ->where('man_power_role_id', $request->man_power_role_id)->where('creator', Auth::user()->id)->first();
-            
+
         if(isset($man_p)){
             if($add == true){
                 $man_p->বৃদ্ধি_সংখ্যা = $man_p->বৃদ্ধি_সংখ্যা + 1;
@@ -68,8 +68,21 @@ class ManPowerRepository implements ManPowerInterface
     {
         $current_number = 0;
         $man_power = ManPower::find($id);
-        $current_number = (int) $man_power->পুর্বের_সংখ্যা + (int) $man_power->বৃদ্ধি_সংখ্যা - (int) $man_power->ঘাটতি_সংখ্যা;
-        
+        if($man_power->man_power_role_id == 2 || $man_power->man_power_role_id == 4){
+            $next = (int) $man_power->man_power_role_id + 1;
+            $man = ManPower::where('month', $man_power->month)->where('year', $man_power->year)
+            ->where('man_power_role_id', $next)->where('creator', Auth::user()->id)->first();
+
+            $current_number_of_next_role = (int) $man->পুর্বের_সংখ্যা + (int) $man->বৃদ্ধি_সংখ্যা - (int) $man->ঘাটতি_সংখ্যা;
+
+            $current_number = (int) $man_power->পুর্বের_সংখ্যা + (int) $man_power->বৃদ্ধি_সংখ্যা - (int) $man_power->ঘাটতি_সংখ্যা;
+
+            $man->বর্তমান_সংখ্যা = $current_number_of_next_role + $current_number;
+            $man->save();
+
+        }else {
+            $current_number = (int) $man_power->পুর্বের_সংখ্যা + (int) $man_power->বৃদ্ধি_সংখ্যা - (int) $man_power->ঘাটতি_সংখ্যা;
+        }
         return $current_number;
     }
 

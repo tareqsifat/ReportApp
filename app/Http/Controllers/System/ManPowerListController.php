@@ -170,14 +170,34 @@ class ManPowerListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $man_power = ManPower::find($id);
-        $man_power->delete();
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'man_power_remove_process_id' => 'required',
+        ]);
 
-        return response()->json([
-            "Message" => "জনশক্তি ডাটা সফল ভাবে ডিলিট হয়েছে"
-        ]); 
+        if($validator->fails()){
+            return response()->json([$validator->errors()]);
+        }
+
+        $man_power = ManPowerList::find($request->id);
+        if(isset($man_power) && $man_power->status != 0){
+            $man_power->status = 0;
+            $man_power->man_power_remove_process_id = $request->man_power_remove_process_id;
+            $man_power->save();
+
+            $this->man_power_interface->man_power_save($man_power, false);
+            
+            return response()->json([
+                "Message" => "জনশক্তি ডাটা ঘাটতি সফল হয়েছে"
+            ]); 
+        }else {
+            return response()->json([
+                "Message" => "Man Power data not found"
+            ]); 
+        }
+
     }
 
     public function check_store_ability(Request $request)
